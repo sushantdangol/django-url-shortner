@@ -1,0 +1,33 @@
+<html>
+    <head>
+        {% load static %}
+        <title>URL Shortner - Shorten you URL</title>
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> -->
+        <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
+    </head>
+    <body>
+    <div class="container">
+        <h1 class="jumbotron">Enter a URL to shorten:</h1>
+        <form method="POST" action="/">
+            {% csrf_token %}
+            <input type="text" class="form-control" name="url" placeholder="Enter a URL">
+            <input type="submit" class="btn btn-primary mt-3">
+        </form>
+        {% if short_url %}
+           <h3>URL shortened:</h3>
+           <h4>Copy this link</h4>
+           <h3>
+            <input type="text" class="form-control" name="url" value="{{ short_url }}"> 
+            </h3>
+            <h4>or,</h4>
+            <h3><a href="{% url 'uurl:short_url' token %}"><span class="badge badge-primary">{{ short_url }}</span></a></h3>
+            
+        {% endif %}
+    </div>
+    </body>
+    <style>
+    body{
+        background-color:#e5e5e5;
+    }
+    </style>
+</html>
