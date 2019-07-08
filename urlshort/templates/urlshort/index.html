@@ -6,7 +6,7 @@
         <link href="{% static 'bootstrap.min.css' %}" rel="stylesheet" type="text/css">
     </head>
     <body>
-    <div class="container">
+    <div class="container mt-5">
         <h1 class="jumbotron">Enter a URL to shorten:</h1>
         <form method="POST" action="/">
             {% csrf_token %}
@@ -17,17 +17,31 @@
            <h3>URL shortened:</h3>
            <h4>Copy this link</h4>
            <h3>
-            <input type="text" class="form-control" name="url" value="{{ short_url }}"> 
+            <input type="text" class="form-control" id="url" name="url" value="{{ short_url }}">
+            <button class="btn btn-default mt-3" onclick="myFunction()">Copy text</button>
             </h3>
-            <h4>or,</h4>
-            <h3><a href="{% url 'uurl:short_url' token %}"><span class="badge badge-primary">{{ short_url }}</span></a></h3>
+            <br>
+            <h4>or, click this link:</h4>
+            <h3><a href="{% url 'uurl:short_url' token %}"><span class="badge badge-primary"><u>{{ short_url }}</u></span></a></h3>
             
         {% endif %}
     </div>
     </body>
     <style>
     body{
-        background-color:#e5e5e5;
+        background-color:#0077be;
     }
+
+    h3, h4{
+        color: #fff;
+    }
+
     </style>
+    <script>
+    function myFunction() {
+        var copyText = document.getElementById("url");
+        copyText.select();
+        document.execCommand("copy");
+    }
+    </script>
 </html>

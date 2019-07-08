@@ -5,6 +5,8 @@ from django.template import RequestContext
 from django.conf import settings
 from django.http import HttpResponseRedirect, HttpResponse
 
+
+
 def generate_token():
     token = ''.join(random.choice(string.ascii_lowercase + string.digits + string.ascii_uppercase) for x in range(5))
     return token
@@ -12,10 +14,15 @@ def generate_token():
 def index(request):
     short_url = None
     token = generate_token()
+    link = UrlModel()
+    
+    if token == link.token:
+        token = generate_token()
+
+    url = request.POST.get('url')
 
     if request.method == "POST":
-        link = UrlModel()
-        link.url = request.POST.get('url')
+        link.url = url
         link.token = token
         link.save()
 
